@@ -44,7 +44,7 @@ async def on_message(message):
         await client.send_message(message.channel, "BIG LMAO")
         return
     
-    if message.content == "lmao"":
+    if message.content == "lmao":
         await client.send_message(message.channel, "LOLOLOLOLOL")
         return
     
