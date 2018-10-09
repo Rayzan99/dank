@@ -32,11 +32,11 @@ async def on_message(message):
         await client.send_message(message.channel, "Cant stop wont stop.")
         return
     
-    if message.content == "xD":
+    if message.content == "xD" or "XD":
         await client.send_message(message.channel, "xDDDDDDDD")
         return
     
-    if message.content == "lol":
+    if message.content == "lol" or "Lol":
         await client.send_message(message.channel, "blmao")
         return
     
@@ -44,15 +44,15 @@ async def on_message(message):
         await client.send_message(message.channel, "BIG LMAO")
         return
     
-    if message.content == "lmao":
+    if message.content == "lmao" or "Lmao":
         await client.send_message(message.channel, "LOLOLOLOLOL")
         return
     
-    if message.content == "lul":
+    if message.content == "lul" or "Lul":
         await client.send_message(message.channel, "OMEGALUL")
         return
     
-    if message.content == "thot":
+    if message.content == "thot" or "Thot":
         await client.send_message(message.channel, "NO U!")
         return
     
