@@ -55,6 +55,9 @@ async def on_message(message):
     if message.content == "thot":
         await client.send_message(message.channel, "NO U!")
         return
+    if message.content == "lenny":
+        await client.send_message(message.channel, "( ͡° ͜ʖ ͡°)")
+        return
     
     if message.content == "fak":
         await client.send_message(message.channel, "Yu")
