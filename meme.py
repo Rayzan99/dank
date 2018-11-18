@@ -64,6 +64,7 @@ async def on_message(message):
     
 
 @client.event
+await client.change_status(game=discord.Game(name='Your Mom', type=1))
 async def on_ready():
     print('Logged in as')
     print(client.user.name)
