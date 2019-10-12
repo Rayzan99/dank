@@ -64,6 +64,10 @@ async def on_message(message):
         await client.send_message(message.channel, "+Resprekt feelsblyatman")
         return
 
+    if message.content == "Padoru":
+        await client.send_message(message.channel, "https://media1.tenor.com/images/3804123baec1748a877d77f7c1b62047/tenor.gif?itemid=12945572")
+        return
+
     if message.content == "fak":
         await client.send_message(message.channel, "Yu")
     
