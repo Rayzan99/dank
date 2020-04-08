@@ -24,10 +24,6 @@ async def on_message(message):
         await client.send_message(message.channel, "I wont lmao")
         return
     
-    if message.content == "vlmao":
-        await client.send_message(message.channel, "VERY LMAO")
-        return
-    
     if message.content == ">play":
         await client.send_message(message.channel, "Bruhhh internet is runing at like Bytes xD cant do that shit rn.")
         return
