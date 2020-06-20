@@ -5,80 +5,98 @@ from discord.ext import commands
 import asyncio
 import time
 import os
+import random
 
 Client = discord.Client()
 client = commands.Bot(command_prefix = ">")
 
+PROPER_GREETING_RESPONE = [
+        "sir",
+        "SIR",
+        "noob",
+        "weeb",
+        "bitch",
+        "retard",
+        "fat-ass",
+        "fat tits",
+        "wasted sperm",
+        "mentally challenged",
+]
+
+def parse_command_args(message):
+    command, *args = message.content[1:].split(" ")
+    return command, ''.join(args)
+
+def handle_hello(message):
+    author = message.author.mention
+    response = [
+        *PROPER_GREETING_RESPONE,
+        f"{author}"
+    ]
+    return f'Hello {random.choice(response)}'
+
+def handle_help(message):
+    author = message.author.mention
+    return f'Hello {author} yes you need serious help'
+    
+def handle_describe_person(message):
+    description = [
+        "retard",
+        "KWAIII",
+        "SENNNNPAII!",
+        "It's a grill",
+        "That's a bot",
+        "You are a bot",
+        "He is probably a gay",
+        "JEW HUNTER 999 NEIN 卍",
+        "It is a proud trans-gender homo pansexual person",
+    ]
+    return random.choice(description)
+
+
+MESSAGE_MAP = {
+    "hi": handle_hello,
+    "help": handle_help,
+    "describe":handle_describe_person,
+    "xD": "xDDDDDDDD",
+    "lol": "blmao",
+    "blmao": "BIG LMAO",
+    "lul": "OMEGALUL",
+    "thot": "NO U!",
+    "lenny": "( ͡° ͜ʖ ͡°)",
+    "csgo":"valorant is better <3",
+    "padoru": "https://media1.tenor.com/images/3804123baec1748a877d77f7c1b62047/tenor.gif?itemid=12945572",
+}
+
 @client.event
 async def on_message(message):
-    # we do not want the bot to reply to itself
-    if message.author == client.user:
+    channel, content, author = message.channel, message.content, message.author.mention
+
+    if not content.startswith('>') or message.author == client.user:
+        """
+        needs '>' to communicate
+        should not be a bot
+        """
         return
 
-    if message.content.startswith('>help'):
-        msg = '''Hello {0.author.mention} yes you need help'''.format(message)
-        await client.send_message(message.channel, msg)
-        return
 
-    if message.content == ">join":
-        await client.send_message(message.channel, "I wont lmao")
-        return
+    command, arg = parse_command_args(message)
     
-    if message.content == ">play":
-        await client.send_message(message.channel, "Bruhhh internet is runing at like Bytes xD cant do that shit rn.")
-        return
-    
-    if message.content == ">stop":
-        await client.send_message(message.channel, "Cant stop wont stop.")
-        return
-    
-    if message.content == "xD":
-        await client.send_message(message.channel, "xDDDDDDDD")
-        return
-    
-    if message.content == "lol":
-        await client.send_message(message.channel, "blmao")
-        return
-    
-    if message.content == "blmao":
-        await client.send_message(message.channel, "BIG LMAO")
-        return
-    
-    if message.content == "lmao":
-        await client.send_message(message.channel, "LOLOLOLOLOL")
-        return
-    
-    if message.content == "lul":
-        await client.send_message(message.channel, "OMEGALUL")
-        return
-    
-    if message.content == "thot":
-        await client.send_message(message.channel, "NO U!")
-        return
+    reply = MESSAGE_MAP.get(command, f"Wrong Command {random.choice(PROPER_GREETING_RESPONE)}")
 
-    if message.content == "lenny":
-        await client.send_message(message.channel, "( ͡° ͜ʖ ͡°)")
-        return
+    if not isinstance(reply, str):
+        reply = reply(message)
 
-    if message.content == "F":
-        await client.send_message(message.channel, "+Resprekt feelsblyatman")
-        return
+    await channel.send(reply)
 
-    if message.content == "Padoru":
-        await client.send_message(message.channel, "https://media1.tenor.com/images/3804123baec1748a877d77f7c1b62047/tenor.gif?itemid=12945572")
-        return
 
-    if message.content == "fak":
-        await client.send_message(message.channel, "Yu")
-    
 
 @client.event
 async def on_ready():
-    print('Logged in as')
+    print('BOT STARTED')
     print(client.user.name)
     print(client.user.id)
     print('------')
-
 
 
 client.run(os.getenv('TOKEN'))
