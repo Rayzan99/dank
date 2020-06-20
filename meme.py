@@ -68,20 +68,30 @@ MESSAGE_MAP = {
     "padoru": "https://media1.tenor.com/images/3804123baec1748a877d77f7c1b62047/tenor.gif?itemid=12945572",
 }
 
+def log_message(message):
+    with open("test.log", "w") as f:
+        f.write(f"{message.content}\n")
+
 @client.event
 async def on_message(message):
     channel, content, author = message.channel, message.content, message.author.mention
 
-    if not content.startswith('>') or message.author == client.user:
+    if message.author == client.user:
         """
-        needs '>' to communicate
         should not be a bot
         """
+        return
+    
+    
+    if not content.startswith('>'):
+        reply = MESSAGE_MAP.get(content, "")
+        if isinstance(reply, str) and len(reply) > 0:
+            await channel.send(reply)
         return
 
 
     command, arg = parse_command_args(message)
-    
+    # log_message(message)
     reply = MESSAGE_MAP.get(command, f"Wrong Command {random.choice(PROPER_GREETING_RESPONE)}")
 
     if not isinstance(reply, str):
