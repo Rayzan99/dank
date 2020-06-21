@@ -8,24 +8,26 @@ import os
 import random
 
 Client = discord.Client()
-client = commands.Bot(command_prefix = ">")
+client = commands.Bot(command_prefix=">")
 
 PROPER_GREETING_RESPONE = [
-        "sir",
-        "SIR",
-        "noob",
-        "weeb",
-        "bitch",
-        "retard",
-        "fat-ass",
-        "fat tits",
-        "wasted sperm",
-        "mentally challenged",
+    "sir",
+    "SIR",
+    "noob",
+    "weeb",
+    "bitch",
+    "retard",
+    "fat-ass",
+    "fat tits",
+    "wasted sperm",
+    "mentally challenged",
 ]
+
 
 def parse_command_args(message):
     command, *args = message.content[1:].split(" ")
     return command, ''.join(args)
+
 
 def handle_hello(message):
     author = message.author.mention
@@ -35,10 +37,12 @@ def handle_hello(message):
     ]
     return f'Hello {random.choice(response)}'
 
+
 def handle_help(message):
     author = message.author.mention
     return f'Hello {author} yes you need serious help'
-    
+
+
 def handle_describe_person(message):
     description = [
         "retard",
@@ -57,20 +61,23 @@ def handle_describe_person(message):
 MESSAGE_MAP = {
     "hi": handle_hello,
     "help": handle_help,
-    "describe":handle_describe_person,
+    "describe": handle_describe_person,
     "xD": "xDDDDDDDD",
     "lol": "blmao",
     "blmao": "BIG LMAO",
     "lul": "OMEGALUL",
     "thot": "NO U!",
     "lenny": "( ͡° ͜ʖ ͡°)",
-    "csgo":"valorant is better <3",
+    "csgo": "valorant is better <3",
+    "dota2": "for brain dead with no life",
     "padoru": "https://media1.tenor.com/images/3804123baec1748a877d77f7c1b62047/tenor.gif?itemid=12945572",
 }
+
 
 def log_message(message):
     with open("test.log", "w") as f:
         f.write(f"{message.content}\n")
+
 
 @client.event
 async def on_message(message):
@@ -81,24 +88,31 @@ async def on_message(message):
         should not be a bot
         """
         return
-    
-    
+
     if not content.startswith('>'):
         reply = MESSAGE_MAP.get(content, "")
-        if isinstance(reply, str) and len(reply) > 0:
-            await channel.send(reply)
-        return
 
+        if not isinstance(reply, str):
+            reply = reply(message)
+
+        if len(reply) == 0:
+            """
+            Don't repsond to everything
+            """
+            return
+
+        await channel.send(reply)
+        return
 
     command, arg = parse_command_args(message)
     # log_message(message)
-    reply = MESSAGE_MAP.get(command, f"Wrong Command {random.choice(PROPER_GREETING_RESPONE)}")
+    reply = MESSAGE_MAP.get(
+        command, f'''"Wrong Command {random.choice(PROPER_GREETING_RESPONE)}"\n{','.join(MESSAGE_MAP.keys())}''')
 
     if not isinstance(reply, str):
         reply = reply(message)
 
     await channel.send(reply)
-
 
 
 @client.event
