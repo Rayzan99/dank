@@ -118,7 +118,6 @@ async def on_message(message):
 
 @client.event
 async def on_ready():
-    await client.change_status(game=discord.Game(name='w/ Your Mom', type=1))
     print('BOT STARTED')
     print(client.user.name)
     print(client.user.id)
