@@ -73,6 +73,7 @@ MESSAGE_MAP = {
     "padoru": "https://media1.tenor.com/images/3804123baec1748a877d77f7c1b62047/tenor.gif?itemid=12945572",
     "F": "Resprekt! FeelsBlyatMan",
     "kekw": "<:kekw:725222301611720724>"
+    "test": "<:tamamoPeek:668143580220620849>"
 }
 
 
@@ -92,7 +93,6 @@ async def on_message(message):
         return
 
     if not content.startswith('>'):
-
         reply = MESSAGE_MAP.get(content, "")
 
         if not isinstance(reply, str):
@@ -102,10 +102,6 @@ async def on_message(message):
             """
             Don't repsond to everything
             """
-            if content.find('kekw') != -1:
-                await channel.send(MESSAGE_MAP.get('kekw'))
-                return
-
             return
 
         await channel.send(reply)
