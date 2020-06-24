@@ -72,7 +72,7 @@ MESSAGE_MAP = {
     "dota2": "for brain dead with no life",
     "padoru": "https://media1.tenor.com/images/3804123baec1748a877d77f7c1b62047/tenor.gif?itemid=12945572",
     "F": "Resprekt! FeelsBlyatMan",
-    "kekw": ":kekw:"
+    "kekw": "<:kekw:725222301611720724>"
 }
 
 
