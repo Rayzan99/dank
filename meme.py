@@ -92,6 +92,7 @@ async def on_message(message):
         return
 
     if not content.startswith('>'):
+
         reply = MESSAGE_MAP.get(content, "")
 
         if not isinstance(reply, str):
@@ -101,6 +102,10 @@ async def on_message(message):
             """
             Don't repsond to everything
             """
+            if content.find('kekw') != -1:
+                await channel.send(MESSAGE_MAP.get('kekw'))
+                return
+
             return
 
         await channel.send(reply)
